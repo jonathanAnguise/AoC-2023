@@ -1,20 +1,44 @@
-import re
+import regex as re
 
-def clean_with_overlap(input)
+def clean(a):
+    if a == "one":
+        return "1"
+    elif a == "two":
+        return "2"
+    elif a == "three":
+        return "3"
+    elif a == "four":
+        return "4"
+    elif a == "five":
+        return "5"
+    elif a == "six":
+        return "6"
+    elif a == "seven":
+        return "7"
+    elif a == "eight":
+        return "8"
+    elif a == "nine":
+        return "9"
+    else:
+        return a
+def clean_with_overlap(input, no_text=False):
     with open(input,"r") as my_text:
         content = my_text.readlines()
-    return content
+        if no_text:
+            regex=("[0-9]")
+        else:
+            regex=("one|two|three|four|five|six|seven|eight|nine|[0-9]")
+        r = re.compile(regex)
+        count=0
+        for line in content:
+            match=r.findall(line, overlapped=True)
+            res = [match[0],match[-1]]
+            res_clean = [clean(a) for a in res]
+            result =res_clean[0] + res_clean[-1]
+            count+= int(result)
+        print(count)
 
-def elves_trebuchet_solver(input):
-        res=0
-        for line in clean_with_overlap(input):
-            numbers_array = "".join(filter(str.isdigit, line))
-            res_str = str(numbers_array[0])+ str(numbers_array[-1])
-            res+=int(res_str)
-    return res
-
-#print(elves_trebuchet_solver("input2"))
-
-
+clean_with_overlap("input2")
+clean_with_overlap("input2", no_text=True)
 
 
