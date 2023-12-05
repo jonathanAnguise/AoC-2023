@@ -12,24 +12,22 @@ def check_game(input, max_red=12, max_green=13, max_blue=14):
         lines = f.readlines()
         for line in lines:
             index += 1
+            are_sets_valid =  []
             sets = line.split(";")
-            #to continue here 
-            count_red = sum([ int(match) for match in re.findall(rr, line)])
-            count_green = sum([ int(match) for match in re.findall(rg, line)])
-            count_blue = sum([ int(match) for match in re.findall(rb, line)])
-            print(line)
-            print(index, count_red, count_green, count_blue)
-            
-            if count_red <= max_red and count_green <= max_green and count_blue <= max_blue:
+            for set in sets:
+                count_red = sum([int(match) for match in re.findall(rr, set)])
+                count_green = sum([int(match) for match in re.findall(rg, set)])
+                count_blue = sum([int(match) for match in re.findall(rb, set)])
+                if not (count_red <= max_red and count_green <= max_green and count_blue <= max_blue):
+                    are_sets_valid.append(False)
+                    break
+                else:
+                    are_sets_valid.append(True)
+            if False in are_sets_valid:
+                continue
+            else:
                 res+= index
-                print(f"{res:>20}")
-
         print(res)
-
-
-
-
-
 
 check_game("input1")
 
